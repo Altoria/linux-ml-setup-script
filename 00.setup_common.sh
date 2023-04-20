@@ -14,6 +14,28 @@ apt-get install -y \
     unzip 7zip rsync \
     build-essential
 
+
+## Install Docker
+if [ -x "$(command -v docker)" ]; then
+    echo "docker already installed"
+else
+    echo "install docker"
+    curl https://get.docker.com | sh && \
+    systemctl --now enable docker
+fi
+
+
+# ## Install docker-compose (deprecated)
+# if [ -x "$(command -v docker-compose)" ]; then
+#     echo "docker-compose already installed"
+# else
+#     COMPOSE_LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/docker/compose/releases/latest) && \
+#     COMPOSE_LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/') && \
+#     sudo curl -L "https://github.com/docker/compose/releases/$(COMPOSE_LATEST_VERSION)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+#     sudo chmod +x /usr/local/bin/docker-compose
+# fi
+
+
 ## some awesome tools
 # rclone
 sudo -v ; curl https://rclone.org/install.sh | sudo bash
@@ -34,24 +56,6 @@ mv gdu_linux_amd64 /usr/bin/gdu
 
 # Oh-My-ZSH
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-## Install Docker
-if [ -x "$(command -v docker)" ]; then
-    echo "docker already installed"
-else
-    curl https://get.docker.com | sh && \
-    systemctl --now enable docker
-fi
-
-# ## Install docker-compose (deprecated)
-# if [ -x "$(command -v docker-compose)" ]; then
-#     echo "docker-compose already installed"
-# else
-#     COMPOSE_LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/docker/compose/releases/latest) && \
-#     COMPOSE_LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/') && \
-#     sudo curl -L "https://github.com/docker/compose/releases/$(COMPOSE_LATEST_VERSION)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
-#     sudo chmod +x /usr/local/bin/docker-compose
-# fi
 
 ## Disable Unattended update
 expect << EOF
