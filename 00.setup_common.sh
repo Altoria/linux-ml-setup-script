@@ -10,7 +10,7 @@ fi
 apt-get update -y && \
 apt-get upgrade -y && \
 apt-get install -y \
-    wget curl htop tmux git zsh ncdu net-tools vim expect \
+    wget curl htop tmux git zsh ncdu net-tools vim expect apt-utils \
     unzip 7zip rsync \
     build-essential
 
@@ -22,6 +22,8 @@ else
     echo "install docker"
     curl https://get.docker.com | sh && \
     systemctl --now enable docker
+
+    usermod -aG docker $USER
 fi
 
 
