@@ -10,7 +10,10 @@ echo -e "blacklist nouveau\noptions nouveau modset=0" | sudo tee /etc/modprobe.d
 ## Nvidia Driver
 BASE_URL=https://us.download.nvidia.com/tesla
 curl -fSsl -O $BASE_URL/$DRIVER_VERSION/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
-sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run
+sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run -m kernel-open
+
+echo "options nvidia NVreg_OpenRmEnableUnsupportedGpus=1" | sudo tee /etc/modprobe.d/nvidia.conf >/dev/null
+
 
 ## NVIDIA Docker
 if [ -x "$(command -v docker)" ]; then
